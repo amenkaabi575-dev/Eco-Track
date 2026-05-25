@@ -26,7 +26,7 @@ public class Organization {
     @Column(nullable = false)
     private String name;
 
-    @Column(unique = true,nullable = false)
+    @Column(name = "tax_id", unique = true,nullable = false)
     private String taxId;
 
     private String sector;
