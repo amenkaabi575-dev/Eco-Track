@@ -1,0 +1,44 @@
+package com.example.demo.Organization.Entity;
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Entity
+@Table(name = "organizations")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Organization {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(name = "tax_id", unique = true,nullable = false)
+    private String taxId;
+
+    private String sector;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    public Organization(String name, String taxId, String sector) {
+        this.name = name;
+        this.taxId = taxId;
+        this.sector = sector;
+    }
+
+}

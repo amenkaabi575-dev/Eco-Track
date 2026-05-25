@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/map_struct_tutorial_db
+    url: jdbc:postgresql://localhost:5432/eco_track_db
     username: postgres
     password: sasuke123
     driver-class-name: org.postgresql.Driver
