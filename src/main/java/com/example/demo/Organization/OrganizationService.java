@@ -11,12 +11,12 @@ public interface OrganizationService {
 
     List<OrganizationDTO> getAllOrganizations();
 
-    OrganizationDTO getOrganizationById(UUID uuid);
+    OrganizationDTO getOrganizationById(UUID id);
 
     OrganizationDTO createOrganization(OrganizationCreateUpdateDTO dto);
 
-    OrganizationDTO updateOrganizationById(UUID uuid,OrganizationCreateUpdateDTO dto);
+    OrganizationDTO updateOrganizationById(UUID id,OrganizationCreateUpdateDTO dto);
 
-    void deleteOrganizationById(UUID uuid);
+    void deleteOrganizationById(UUID id);
 
 }

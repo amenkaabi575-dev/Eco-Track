@@ -24,9 +24,9 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public OrganizationDTO getOrganizationById(UUID uuid) {
+    public OrganizationDTO getOrganizationById(UUID id) {
         Organization organization = organizationRepository
-                .findById(uuid)
+                .findById(id)
                 .orElseThrow(()-> new RuntimeException("Organization not found"));
         return organizationMapper.toDto(organization);
     }
@@ -43,8 +43,8 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     @Transactional
-    public OrganizationDTO updateOrganizationById(UUID uuid, OrganizationCreateUpdateDTO dto) {
-        Organization organization = organizationRepository.findById(uuid).orElseThrow(()->new RuntimeException("Organization not found"));
+    public OrganizationDTO updateOrganizationById(UUID id, OrganizationCreateUpdateDTO dto) {
+        Organization organization = organizationRepository.findById(id).orElseThrow(()->new RuntimeException("Organization not found"));
         if (dto.getName()!=null && !dto.getName().equals(organization.getName())){
             organization.setName(dto.getName());
         }
@@ -61,8 +61,8 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public void deleteOrganizationById(UUID uuid) {
-        Organization organization = organizationRepository.findById(uuid).orElseThrow(()->new RuntimeException("Organization not found"));
-        organizationRepository.deleteById(uuid);
+    public void deleteOrganizationById(UUID id) {
+        Organization organization = organizationRepository.findById(id).orElseThrow(()->new RuntimeException("Organization not found"));
+        organizationRepository.deleteById(id);
     }
 }
