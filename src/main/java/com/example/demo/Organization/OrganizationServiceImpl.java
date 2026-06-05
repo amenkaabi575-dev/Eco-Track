@@ -4,6 +4,7 @@ import com.example.demo.Organization.Entity.Organization;
 import com.example.demo.Organization.Entity.OrganizationMapper;
 import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateUpdateDTO;
 import com.example.demo.Organization.Entity.ResponseDTOs.OrganizationDTO;
+import com.example.demo.common.Exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class OrganizationServiceImpl implements OrganizationService{
     public OrganizationDTO getOrganizationById(UUID id) {
         Organization organization = organizationRepository
                 .findById(id)
-                .orElseThrow(()-> new RuntimeException("Organization not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Organization not found"));
         return organizationMapper.toDto(organization);
     }
 
@@ -44,7 +45,7 @@ public class OrganizationServiceImpl implements OrganizationService{
     @Override
     @Transactional
     public OrganizationDTO updateOrganizationById(UUID id, OrganizationCreateUpdateDTO dto) {
-        Organization organization = organizationRepository.findById(id).orElseThrow(()->new RuntimeException("Organization not found"));
+        Organization organization = organizationRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Organization not found"));
         if (dto.getName()!=null && !dto.getName().equals(organization.getName())){
             organization.setName(dto.getName());
         }
@@ -62,7 +63,7 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     public void deleteOrganizationById(UUID id) {
-        Organization organization = organizationRepository.findById(id).orElseThrow(()->new RuntimeException("Organization not found"));
+        Organization organization = organizationRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Organization not found"));
         organizationRepository.deleteById(id);
     }
 }
