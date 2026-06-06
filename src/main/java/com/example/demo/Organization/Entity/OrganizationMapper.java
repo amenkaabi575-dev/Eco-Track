@@ -1,6 +1,6 @@
 package com.example.demo.Organization.Entity;
 
-import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateUpdateDTO;
+import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateDTO;
 import com.example.demo.Organization.Entity.ResponseDTOs.OrganizationDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,7 +17,7 @@ public interface OrganizationMapper {
 
     @Mapping(target = "id",ignore = true)
     @Mapping(target = "createdAt",ignore = true)
-    Organization toEntity(OrganizationCreateUpdateDTO dto);
+    Organization toEntity(OrganizationCreateDTO dto);
 
     // Allows MapStruct to map the UUID to a String when Mapping to DTO
     default String mapUUIDtoString(UUID uuid){

@@ -1,6 +1,7 @@
 package com.example.demo.Organization;
 
-import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateUpdateDTO;
+import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateDTO;
+import com.example.demo.Organization.Entity.RequestDTOs.OrganizationUpdateDTO;
 import com.example.demo.Organization.Entity.ResponseDTOs.OrganizationDTO;
 
 import java.util.List;
@@ -13,9 +14,9 @@ public interface OrganizationService {
 
     OrganizationDTO getOrganizationById(UUID id);
 
-    OrganizationDTO createOrganization(OrganizationCreateUpdateDTO dto);
+    OrganizationDTO createOrganization(OrganizationCreateDTO dto);
 
-    OrganizationDTO updateOrganizationById(UUID id,OrganizationCreateUpdateDTO dto);
+    OrganizationDTO updateOrganizationById(UUID id, OrganizationUpdateDTO dto);
 
     void deleteOrganizationById(UUID id);
 

@@ -1,6 +1,7 @@
 package com.example.demo.Organization;
 
-import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateUpdateDTO;
+import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateDTO;
+import com.example.demo.Organization.Entity.RequestDTOs.OrganizationUpdateDTO;
 import com.example.demo.Organization.Entity.ResponseDTOs.OrganizationDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class OrganizationController {
 
 
     @PostMapping
-    public OrganizationDTO createOrganization(@RequestBody OrganizationCreateUpdateDTO dto){
+    public OrganizationDTO createOrganization(@RequestBody OrganizationCreateDTO dto){
 
         return organizationService.createOrganization(dto);
 
@@ -40,7 +41,7 @@ public class OrganizationController {
 
     @PutMapping("{id}")
     public OrganizationDTO updateOrganizationById(@PathVariable UUID id,
-                                              @RequestBody OrganizationCreateUpdateDTO dto){
+                                              @RequestBody OrganizationUpdateDTO dto){
 
         return organizationService.updateOrganizationById(id,dto);
 

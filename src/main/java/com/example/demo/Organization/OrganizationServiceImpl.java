@@ -2,7 +2,8 @@ package com.example.demo.Organization;
 
 import com.example.demo.Organization.Entity.Organization;
 import com.example.demo.Organization.Entity.OrganizationMapper;
-import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateUpdateDTO;
+import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateDTO;
+import com.example.demo.Organization.Entity.RequestDTOs.OrganizationUpdateDTO;
 import com.example.demo.Organization.Entity.ResponseDTOs.OrganizationDTO;
 import com.example.demo.common.Exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
@@ -33,7 +34,7 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public OrganizationDTO createOrganization(OrganizationCreateUpdateDTO dto) {
+    public OrganizationDTO createOrganization(OrganizationCreateDTO dto) {
         Organization organization = organizationRepository
                 .save(organizationMapper.toEntity(dto));
 
@@ -44,7 +45,7 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     @Transactional
-    public OrganizationDTO updateOrganizationById(UUID id, OrganizationCreateUpdateDTO dto) {
+    public OrganizationDTO updateOrganizationById(UUID id, OrganizationUpdateDTO dto) {
         Organization organization = organizationRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Organization not found"));
         if (dto.getName()!=null && !dto.getName().equals(organization.getName())){
             organization.setName(dto.getName());
