@@ -1,8 +1,8 @@
-package com.example.demo.Organization;
+package com.example.demo.organization;
 
-import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateDTO;
-import com.example.demo.Organization.Entity.RequestDTOs.OrganizationUpdateDTO;
-import com.example.demo.Organization.Entity.ResponseDTOs.OrganizationDTO;
+import com.example.demo.organization.entity.RequestDTOs.OrganizationCreateDTO;
+import com.example.demo.organization.entity.RequestDTOs.OrganizationUpdateDTO;
+import com.example.demo.organization.entity.ResponseDTOs.OrganizationDTO;
 
 import java.util.List;
 import java.util.UUID;

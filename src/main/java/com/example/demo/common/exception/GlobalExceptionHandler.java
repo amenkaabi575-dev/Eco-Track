@@ -1,4 +1,4 @@
-package com.example.demo.common.Exception;
+package com.example.demo.common.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

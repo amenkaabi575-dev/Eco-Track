@@ -1,6 +1,6 @@
-package com.example.demo.Organization.Entity.RequestDTOs;
+package com.example.demo.organization.entity.ResponseDTOs;
 
-import jakarta.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,15 +8,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrganizationCreateDTO {
+public class OrganizationDTO {
 
-    @NotBlank
+    private String organizationId;
+
     private String name;
 
-    @NotBlank
     private String taxId;
 
-    @NotBlank
     private String sector;
+
+    private String createdAt;
 
 }

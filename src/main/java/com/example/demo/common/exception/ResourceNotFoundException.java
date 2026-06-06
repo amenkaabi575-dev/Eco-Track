@@ -1,6 +1,5 @@
-package com.example.demo.common.Exception;
+package com.example.demo.common.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter

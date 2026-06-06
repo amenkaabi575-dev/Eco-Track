@@ -1,7 +1,7 @@
-package com.example.demo.Organization.Entity;
+package com.example.demo.organization.entity;
 
-import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateDTO;
-import com.example.demo.Organization.Entity.ResponseDTOs.OrganizationDTO;
+import com.example.demo.organization.entity.RequestDTOs.OrganizationCreateDTO;
+import com.example.demo.organization.entity.ResponseDTOs.OrganizationDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

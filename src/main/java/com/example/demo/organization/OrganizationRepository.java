@@ -1,6 +1,6 @@
-package com.example.demo.Organization;
+package com.example.demo.organization;
 
-import com.example.demo.Organization.Entity.Organization;
+import com.example.demo.organization.entity.Organization;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

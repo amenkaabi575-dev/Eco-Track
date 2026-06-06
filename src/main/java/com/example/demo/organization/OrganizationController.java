@@ -1,8 +1,9 @@
-package com.example.demo.Organization;
+package com.example.demo.organization;
 
-import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateDTO;
-import com.example.demo.Organization.Entity.RequestDTOs.OrganizationUpdateDTO;
-import com.example.demo.Organization.Entity.ResponseDTOs.OrganizationDTO;
+import com.example.demo.organization.entity.RequestDTOs.OrganizationCreateDTO;
+import com.example.demo.organization.entity.RequestDTOs.OrganizationUpdateDTO;
+import com.example.demo.organization.entity.ResponseDTOs.OrganizationDTO;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class OrganizationController {
 
 
     @PostMapping
-    public OrganizationDTO createOrganization(@RequestBody OrganizationCreateDTO dto){
+    public OrganizationDTO createOrganization(@Valid @RequestBody OrganizationCreateDTO dto){
 
         return organizationService.createOrganization(dto);
 
