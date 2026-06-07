@@ -2,18 +2,21 @@ package com.example.demo.common.exception;
 
 
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 public class BusinessException extends RuntimeException {
 
     private final String errorCode;
+    private final HttpStatus status;
 
     public BusinessException(String message) {
-        this(message,"BUSINESS_ERROR");
+        this(message,"BUSINESS_ERROR",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public BusinessException(String message, String errorCode) {
+    public BusinessException(String message, String errorCode, HttpStatus status) {
         super(message);
         this.errorCode = errorCode;
+        this.status = status;
     }
 }

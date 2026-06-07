@@ -9,6 +9,7 @@ import com.example.demo.organization.entity.ResponseDTOs.OrganizationDTO;
 import com.example.demo.common.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,7 +40,9 @@ public class OrganizationServiceImpl implements OrganizationService{
 
         // Checking name uniqueness
         if(organizationRepository.existsByName(dto.getName())){
-            throw new BusinessException("Organization name already exists","ORGANIZATION_NAME_UNIQUENESS_VIOLATED");
+            throw new BusinessException("Organization name already exists",
+                    "ORGANIZATION_NAME_UNIQUENESS_VIOLATED",
+                    HttpStatus.CONFLICT);
         }
 
         Organization organization = organizationRepository
@@ -63,13 +66,14 @@ public class OrganizationServiceImpl implements OrganizationService{
             organizationRepository.existsByName(newName)
 
         ){
-            throw new BusinessException("Organization name already exists","ORGANIZATION_NAME_UNIQUENESS_VIOLATED");
+            throw new BusinessException("Organization name already exists",
+                    "ORGANIZATION_NAME_UNIQUENESS_VIOLATED",
+                    HttpStatus.BAD_REQUEST);
         }
 
         organizationMapper.updateEntityFromDto(dto,organization);
 
-    return organizationMapper.toDto(organization);
-
+        return organizationMapper.toDto(organization);
 
     }
 

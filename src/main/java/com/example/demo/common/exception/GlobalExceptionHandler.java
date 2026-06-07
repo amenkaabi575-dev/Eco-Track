@@ -28,4 +28,20 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException ex, HttpServletRequest request){
+
+
+        ErrorResponse response = ErrorResponse.builder()
+                .message(ex.getMessage())
+                .statusCode(ex.getStatus().value())
+                .timestamp(LocalDateTime.now())
+                .path(request.getRequestURI())
+                .errorCode(ex.getErrorCode())
+                .build();
+
+        return ResponseEntity.status(ex.getStatus()).body(response);
+
+    }
+
 }
