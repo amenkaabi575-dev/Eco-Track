@@ -1,20 +1,23 @@
-package com.example.demo.Organization.Entity.RequestDTOs;
+package com.example.demo.organization.entity.ResponseDTOs;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrganizationCreateUpdateDTO {
+public class OrganizationDTO {
+
+    private String organizationId;
 
     private String name;
 
     private String taxId;
 
     private String sector;
+
+    private String createdAt;
 
 }

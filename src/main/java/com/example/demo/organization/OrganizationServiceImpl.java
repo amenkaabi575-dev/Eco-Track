@@ -1,9 +1,11 @@
-package com.example.demo.Organization;
+package com.example.demo.organization;
 
-import com.example.demo.Organization.Entity.Organization;
-import com.example.demo.Organization.Entity.OrganizationMapper;
-import com.example.demo.Organization.Entity.RequestDTOs.OrganizationCreateUpdateDTO;
-import com.example.demo.Organization.Entity.ResponseDTOs.OrganizationDTO;
+import com.example.demo.organization.entity.Organization;
+import com.example.demo.organization.entity.OrganizationMapper;
+import com.example.demo.organization.entity.RequestDTOs.OrganizationCreateDTO;
+import com.example.demo.organization.entity.RequestDTOs.OrganizationUpdateDTO;
+import com.example.demo.organization.entity.ResponseDTOs.OrganizationDTO;
+import com.example.demo.common.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,15 +26,15 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public OrganizationDTO getOrganizationById(UUID uuid) {
+    public OrganizationDTO getOrganizationById(UUID id) {
         Organization organization = organizationRepository
-                .findById(uuid)
-                .orElseThrow(()-> new RuntimeException("Organization not found"));
+                .findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Organization not found"));
         return organizationMapper.toDto(organization);
     }
 
     @Override
-    public OrganizationDTO createOrganization(OrganizationCreateUpdateDTO dto) {
+    public OrganizationDTO createOrganization(OrganizationCreateDTO dto) {
         Organization organization = organizationRepository
                 .save(organizationMapper.toEntity(dto));
 
@@ -43,8 +45,8 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     @Transactional
-    public OrganizationDTO updateOrganizationById(UUID uuid, OrganizationCreateUpdateDTO dto) {
-        Organization organization = organizationRepository.findById(uuid).orElseThrow(()->new RuntimeException("Organization not found"));
+    public OrganizationDTO updateOrganizationById(UUID id, OrganizationUpdateDTO dto) {
+        Organization organization = organizationRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Organization not found"));
         if (dto.getName()!=null && !dto.getName().equals(organization.getName())){
             organization.setName(dto.getName());
         }
@@ -61,8 +63,8 @@ public class OrganizationServiceImpl implements OrganizationService{
     }
 
     @Override
-    public void deleteOrganizationById(UUID uuid) {
-        Organization organization = organizationRepository.findById(uuid).orElseThrow(()->new RuntimeException("Organization not found"));
-        organizationRepository.deleteById(uuid);
+    public void deleteOrganizationById(UUID id) {
+        Organization organization = organizationRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Organization not found"));
+        organizationRepository.deleteById(id);
     }
 }
