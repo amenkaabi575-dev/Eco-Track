@@ -1,5 +1,6 @@
 package com.example.demo.organization;
 
+import com.example.demo.common.exception.BusinessException;
 import com.example.demo.organization.entity.Organization;
 import com.example.demo.organization.entity.OrganizationMapper;
 import com.example.demo.organization.entity.RequestDTOs.OrganizationCreateDTO;
@@ -29,12 +30,18 @@ public class OrganizationServiceImpl implements OrganizationService{
     public OrganizationDTO getOrganizationById(UUID id) {
         Organization organization = organizationRepository
                 .findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Organization not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Organization not found","ORGANIZATION_NOT_FOUND"));
         return organizationMapper.toDto(organization);
     }
 
     @Override
     public OrganizationDTO createOrganization(OrganizationCreateDTO dto) {
+
+        // Checking name uniqueness
+        if(organizationRepository.existsByName(dto.getName())){
+            throw new BusinessException("Organization name already exists","ORGANIZATION_NAME_UNIQUENESS_VIOLATED");
+        }
+
         Organization organization = organizationRepository
                 .save(organizationMapper.toEntity(dto));
 
@@ -46,25 +53,31 @@ public class OrganizationServiceImpl implements OrganizationService{
     @Override
     @Transactional
     public OrganizationDTO updateOrganizationById(UUID id, OrganizationUpdateDTO dto) {
+
         Organization organization = organizationRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Organization not found"));
-        if (dto.getName()!=null && !dto.getName().equals(organization.getName())){
-            organization.setName(dto.getName());
-        }
-        if (dto.getTaxId()!=null && !dto.getTaxId().equals(organization.getTaxId())){
-            organization.setTaxId(dto.getTaxId());
-        }
-        if (dto.getSector()!=null && !dto.getSector().equals(organization.getSector())){
-            organization.setSector(dto.getSector());
+
+        String newName = dto.getName();
+
+        if( newName != null &&
+            !newName.equals(organization.getName()) &&
+            organizationRepository.existsByName(newName)
+
+        ){
+            throw new BusinessException("Organization name already exists","ORGANIZATION_NAME_UNIQUENESS_VIOLATED");
         }
 
-        return organizationMapper.toDto(organization);
+        organizationMapper.updateEntityFromDto(dto,organization);
+
+    return organizationMapper.toDto(organization);
 
 
     }
 
     @Override
     public void deleteOrganizationById(UUID id) {
-        Organization organization = organizationRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Organization not found"));
+        if(organizationRepository.existsById(id)){
+            throw new ResourceNotFoundException("Organization not found","ORGANIZATION_NOT_FOUND");
+        }
         organizationRepository.deleteById(id);
     }
 }

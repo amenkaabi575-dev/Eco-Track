@@ -23,7 +23,7 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(name = "tax_id", unique = true,nullable = false)
