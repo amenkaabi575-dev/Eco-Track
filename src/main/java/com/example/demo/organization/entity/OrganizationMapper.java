@@ -1,13 +1,16 @@
 package com.example.demo.organization.entity;
 
 import com.example.demo.organization.entity.RequestDTOs.OrganizationCreateDTO;
+import com.example.demo.organization.entity.RequestDTOs.OrganizationUpdateDTO;
 import com.example.demo.organization.entity.ResponseDTOs.OrganizationDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.UUID;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface OrganizationMapper {
 
 
@@ -19,13 +22,15 @@ public interface OrganizationMapper {
     @Mapping(target = "createdAt",ignore = true)
     Organization toEntity(OrganizationCreateDTO dto);
 
+    void updateEntityFromDto(OrganizationUpdateDTO dto, @MappingTarget Organization entity);
+
     // Allows MapStruct to map the UUID to a String when Mapping to DTO
     default String mapUUIDtoString(UUID uuid){
-        return uuid.toString();
+        return uuid == null ? null : uuid.toString();
     }
 
     // Allows MapStruct to map the String id to a UUID when Mapping from the DTO to the Entity
     default UUID mapStringToUUID(String uuid){
-        return UUID.fromString(uuid);
+        return uuid == null ? null : UUID.fromString(uuid);
     }
 }

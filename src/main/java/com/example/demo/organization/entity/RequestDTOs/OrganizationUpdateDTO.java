@@ -17,6 +17,6 @@ public class OrganizationUpdateDTO {
     private String name;
 
     @Size(max = 255, message = "Sector must not exceed 255 characters")
-    private String Sector;
+    private String sector;
 
 }
