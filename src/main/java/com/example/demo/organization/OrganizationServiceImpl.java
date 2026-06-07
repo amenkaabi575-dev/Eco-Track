@@ -40,7 +40,9 @@ public class OrganizationServiceImpl implements OrganizationService{
 
         // Checking name uniqueness
         if(organizationRepository.existsByName(dto.getName())){
-            throw new BusinessException("Organization name already exists","ORGANIZATION_NAME_UNIQUENESS_VIOLATED");
+            throw new BusinessException("Organization name already exists",
+                    "ORGANIZATION_NAME_UNIQUENESS_VIOLATED",
+                    HttpStatus.CONFLICT);
         }
 
         Organization organization = organizationRepository
