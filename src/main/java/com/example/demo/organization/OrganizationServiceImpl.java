@@ -1,6 +1,7 @@
 package com.example.demo.organization;
 
 import com.example.demo.common.exception.BusinessException;
+import com.example.demo.common.exception.DuplicateResourceException;
 import com.example.demo.organization.entity.Organization;
 import com.example.demo.organization.entity.OrganizationMapper;
 import com.example.demo.organization.entity.RequestDTOs.OrganizationCreateDTO;
@@ -40,9 +41,13 @@ public class OrganizationServiceImpl implements OrganizationService{
 
         // Checking name uniqueness
         if(organizationRepository.existsByName(dto.getName())){
-            throw new BusinessException("Organization name already exists",
-                    "ORGANIZATION_NAME_UNIQUENESS_VIOLATED",
-                    HttpStatus.CONFLICT);
+            throw new DuplicateResourceException("Organization name already exists",
+                    "ORGANIZATION_NAME_DUPLICATE");
+        }
+
+        if(organizationRepository.existsByTaxId(dto.getTaxId())){
+            throw new DuplicateResourceException("Organization Tax ID already exists",
+                    "ORGANIZATION_TAX_ID_DUPLICATE");
         }
 
         Organization organization = organizationRepository
@@ -66,9 +71,8 @@ public class OrganizationServiceImpl implements OrganizationService{
             organizationRepository.existsByName(newName)
 
         ){
-            throw new BusinessException("Organization name already exists",
-                    "ORGANIZATION_NAME_UNIQUENESS_VIOLATED",
-                    HttpStatus.BAD_REQUEST);
+            throw new DuplicateResourceException("Organization name already exists",
+                    "ORGANIZATION_NAME_DUPLICATE");
         }
 
         organizationMapper.updateEntityFromDto(dto,organization);

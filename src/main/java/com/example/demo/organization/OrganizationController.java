@@ -42,7 +42,7 @@ public class OrganizationController {
 
     @PutMapping("{id}")
     public OrganizationDTO updateOrganizationById(@PathVariable UUID id,
-                                              @RequestBody OrganizationUpdateDTO dto){
+                                             @Valid @RequestBody OrganizationUpdateDTO dto){
 
         return organizationService.updateOrganizationById(id,dto);
 
