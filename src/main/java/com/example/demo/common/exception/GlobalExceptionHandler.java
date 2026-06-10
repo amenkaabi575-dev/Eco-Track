@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
                 .message(ex.getMessage())
                 .timestamp(LocalDateTime.now())
                 .path(request.getRequestURI())
-                .statusCode(HttpStatus.CONTINUE.value())
+                .statusCode(HttpStatus.CONFLICT.value())
                 .errorCode(ex.getErrorCode())
                 .build();
 
