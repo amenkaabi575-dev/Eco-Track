@@ -79,7 +79,7 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     public void deleteOrganizationById(UUID id) {
-        if(organizationRepository.existsById(id)){
+        if(!organizationRepository.existsById(id)){
             throw new ResourceNotFoundException("Organization not found","ORGANIZATION_NOT_FOUND");
         }
         organizationRepository.deleteById(id);
