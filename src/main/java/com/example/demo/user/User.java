@@ -1,6 +1,7 @@
 package com.example.demo.user;
 
 
+import com.example.demo.organization.entity.Organization;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +31,8 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Organization organization;
 
 
 
