@@ -1,16 +1,14 @@
 package com.example.demo.organization;
 
-import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.exception.DuplicateResourceException;
 import com.example.demo.organization.entity.Organization;
 import com.example.demo.organization.entity.OrganizationMapper;
-import com.example.demo.organization.entity.RequestDTOs.OrganizationCreateDTO;
-import com.example.demo.organization.entity.RequestDTOs.OrganizationUpdateDTO;
-import com.example.demo.organization.entity.ResponseDTOs.OrganizationDTO;
+import com.example.demo.organization.entity.requestDTOs.OrganizationCreateDTO;
+import com.example.demo.organization.entity.requestDTOs.OrganizationUpdateDTO;
+import com.example.demo.organization.entity.responseDTOs.OrganizationDTO;
 import com.example.demo.common.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -83,9 +81,10 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     public void deleteOrganizationById(UUID id) {
-        if(!organizationRepository.existsById(id)){
-            throw new ResourceNotFoundException("Organization not found","ORGANIZATION_NOT_FOUND");
-        }
+        organizationRepository
+                .findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Organization not found","ORGANIZATION_NOT_FOUND"));
+
         organizationRepository.deleteById(id);
     }
 }

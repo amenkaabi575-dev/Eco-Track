@@ -1,6 +1,5 @@
-package com.example.demo.organization.entity.RequestDTOs;
+package com.example.demo.organization.entity.requestDTOs;
 
-import com.example.demo.common.validation.TunisianTaxId;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
