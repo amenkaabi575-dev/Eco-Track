@@ -32,7 +32,6 @@ public class UserCreateDTO {
     @NotNull
     private UserRole userRole;
 
-    @Size(max = 255)
     private UUID organizationId;
 
 }

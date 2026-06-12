@@ -24,7 +24,6 @@ public class UserUpdateDTO {
 
     private UserRole userRole;
 
-    @Size(max = 255)
     private UUID organizationId;
 
 
