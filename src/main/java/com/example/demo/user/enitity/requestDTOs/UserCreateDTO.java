@@ -1,6 +1,7 @@
 package com.example.demo.user.enitity.requestDTOs;
 
 
+import com.example.demo.common.validation.Password;
 import com.example.demo.user.enitity.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -26,7 +27,8 @@ public class UserCreateDTO {
     private String email;
 
     @NotBlank
-    @Size(max = 255)
+    @Size(min = 8, max = 255)
+    @Password
     private String password;
 
     @NotNull

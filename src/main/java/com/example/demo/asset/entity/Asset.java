@@ -1,4 +1,4 @@
-package com.example.demo.user.enitity;
+package com.example.demo.asset.entity;
 
 
 import com.example.demo.organization.entity.Organization;
@@ -9,37 +9,37 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Setter
+@Getter
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "assets")
+public class Asset {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "username",unique = true, nullable = false)
-    private String username;
-
-    @Column(name = "email", unique = true, nullable = false)
-    private String email;
-
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Column(name = "name",nullable = false)
+    private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "user_role")
-    private UserRole userRole;
+    @Column(name = "type",nullable = false)
+    private AssetType type;
+
+    @Column(name = "description")
+    private String description;
 
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id", nullable = false)
     private Organization organization;
 
 
