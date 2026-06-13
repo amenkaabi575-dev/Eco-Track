@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/ap1/v1/assets")
 public class AssetController {
 
     private final AssetService assetService;
