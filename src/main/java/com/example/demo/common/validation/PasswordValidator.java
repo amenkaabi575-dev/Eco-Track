@@ -7,8 +7,8 @@ public class PasswordValidator implements ConstraintValidator<Password,String> {
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
-        if (password == null || password.length() < 8) {
-            return false;
+        if (password == null) {
+            return true;
         }
 
         boolean hasUpperCase = password.chars()
