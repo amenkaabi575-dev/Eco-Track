@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public UserDTO updateUserById(UserUpdateDTO dto, UUID id) {
+    public UserDTO updateUserById(UUID id, UserUpdateDTO dto) {
         User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("User not found","USER_NOT_FOUND"));
 
         if(dto.getEmail()!=null && userRepository.existsByEmailAndIdNot(dto.getEmail(), user.getId())){
