@@ -18,7 +18,7 @@ public interface UserService {
 
     List<UserDTO> getUsersByOrganizationId(UUID id);
 
-    UserDTO updateUserById(UserUpdateDTO dto, UUID id);
+    UserDTO updateUserById(UUID id, UserUpdateDTO dto);
 
     void deleteUserById(UUID id);
 
