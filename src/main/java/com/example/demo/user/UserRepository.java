@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     boolean existsByEmail(String email);
 
     @Query("""
-            SELECT User FROM User u
+            SELECT u FROM User u
             JOIN FETCH u.organization o
             WHERE o.id = :organizationId
             """)
