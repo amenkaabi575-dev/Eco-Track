@@ -1,6 +1,7 @@
 package com.example.demo.emissionFactor.entity;
 
 
+import com.example.demo.organization.entity.Organization;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,18 +27,19 @@ public class EmissionFactor {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "unit",nullable = false)
-    private String unit;
+    private EmissionFactorUnit unit;
 
     @Column(name = "factor_value",nullable = false,precision = 10, scale = 6)
     private BigDecimal factorValue;
 
-    @Builder.Default
-    @Column(name = "is_global",nullable = false)
-    private boolean isGlobal = true;
-
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
 }
