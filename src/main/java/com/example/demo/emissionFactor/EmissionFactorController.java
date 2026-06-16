@@ -33,7 +33,7 @@ public class EmissionFactorController {
     }
 
     @GetMapping
-    public List<EmissionFactorDTO> getEmissionFactors(@RequestParam(required = false) boolean isGlobal){
+    public List<EmissionFactorDTO> getEmissionFactors(@RequestParam(required = false) Boolean isGlobal){
 
         if (isGlobal){
             return emissionFactorService.getGlobalFactors();
