@@ -35,7 +35,7 @@ public class EmissionFactorController {
     @GetMapping
     public List<EmissionFactorDTO> getEmissionFactors(@RequestParam(required = false) Boolean isGlobal){
 
-        if (isGlobal){
+        if (Boolean.TRUE.equals(isGlobal)){
             return emissionFactorService.getGlobalFactors();
         }
 
