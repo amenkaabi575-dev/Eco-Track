@@ -1,7 +1,7 @@
 package com.example.demo.emissionFactor;
 
-import com.example.demo.emissionFactor.entity.EmissionFactor;
 import com.example.demo.emissionFactor.entity.requestDTOs.EmissionFactorCreateDTO;
+import com.example.demo.emissionFactor.entity.requestDTOs.EmissionFactorUpdateDTO;
 import com.example.demo.emissionFactor.entity.responseDTOs.EmissionFactorDTO;
 
 import java.util.List;
@@ -14,11 +14,11 @@ public interface EmissionFactorService {
 
     EmissionFactorDTO getFactorById(UUID id);
 
-    List<EmissionFactor> getAllFactors();
+    List<EmissionFactorDTO> getAllFactors();
 
-    List<EmissionFactor> getGlobalFactors();
+    List<EmissionFactorDTO> getGlobalFactors();
 
-    EmissionFactorDTO updateFactorById(UUID id);
+    EmissionFactorDTO updateFactorById(UUID id, EmissionFactorUpdateDTO dto);
 
     void deleteFactorById(UUID id);
 
