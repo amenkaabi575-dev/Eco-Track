@@ -4,9 +4,7 @@ import com.example.demo.asset.entity.Asset;
 import com.example.demo.emissionFactor.entity.EmissionFactor;
 import com.example.demo.emissionFactor.entity.EmissionFactorUnit;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
@@ -17,6 +15,8 @@ import java.util.UUID;
 @Table(name = "activities")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Builder
 public class Activity {
 
@@ -29,7 +29,7 @@ public class Activity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "consumption_unit")
-    private EmissionFactorUnit unit;
+    private EmissionFactorUnit consumptionUnit;
 
     @Column(name = "activity_date", nullable = false)
     private LocalDateTime activityDate;
