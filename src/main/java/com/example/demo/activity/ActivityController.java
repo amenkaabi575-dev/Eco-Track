@@ -26,7 +26,7 @@ public class ActivityController {
     }
 
     @GetMapping
-    public List<ActivityDTO> getActivities(@RequestParam UUID assetId, @RequestParam UUID organizationId){
+    public List<ActivityDTO> getActivities(@RequestParam(required = false) UUID assetId, @RequestParam(required = false) UUID organizationId){
 
         if (assetId != null && organizationId != null){
 

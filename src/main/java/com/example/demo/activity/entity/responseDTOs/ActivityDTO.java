@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 public class ActivityDTO {
 
-    private UUID asset_id;
+    private UUID assetId;
 
     private String assetName;
 

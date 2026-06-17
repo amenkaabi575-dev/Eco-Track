@@ -1,8 +1,8 @@
-package com.example.demo.activity.entity;
+package com.example.demo.activity;
 
 
-import com.example.demo.activity.ActivityRepository;
-import com.example.demo.activity.ActivityService;
+import com.example.demo.activity.entity.Activity;
+import com.example.demo.activity.entity.ActivityMapper;
 import com.example.demo.activity.entity.requestDTOs.ActivityCreateDTO;
 import com.example.demo.activity.entity.requestDTOs.ActivityUpdateDTO;
 import com.example.demo.activity.entity.responseDTOs.ActivityDTO;

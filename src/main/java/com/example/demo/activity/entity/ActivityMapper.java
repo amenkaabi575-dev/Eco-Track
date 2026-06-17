@@ -13,7 +13,7 @@ public interface ActivityMapper {
 
 
     @Mapping(source = "asset.name", target = "assetName")
-    @Mapping(source = "asset.id",target = "asset_id")
+    @Mapping(source = "asset.id",target = "assetId")
     @Mapping(source = "emissionFactor.name", target = "emissionFactorName")
     @Mapping(source = "emissionFactor.id",target = "emissionFactorId")
     ActivityDTO toDto(Activity activity);
