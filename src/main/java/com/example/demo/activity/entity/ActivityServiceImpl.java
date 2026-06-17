@@ -8,12 +8,14 @@ import com.example.demo.activity.entity.requestDTOs.ActivityUpdateDTO;
 import com.example.demo.activity.entity.responseDTOs.ActivityDTO;
 import com.example.demo.asset.AssetRepository;
 import com.example.demo.asset.entity.Asset;
+import com.example.demo.common.exception.BusinessException;
 import com.example.demo.common.exception.ResourceNotFoundException;
 import com.example.demo.emissionFactor.EmissionFactorRepository;
 import com.example.demo.emissionFactor.entity.EmissionFactor;
 import com.example.demo.organization.OrganizationRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +40,14 @@ public class ActivityServiceImpl implements ActivityService {
         EmissionFactor factor = emissionFactorRepository
                 .findById(dto.getEmissionFactorId())
                 .orElseThrow(()-> new ResourceNotFoundException("Emission factor not found","EMISSION_FACTOR_NOT_FOUND"));
+
+        if(dto.getConsumptionUnit()!=factor.getUnit()){
+            throw new BusinessException(
+                    "Consumption unit and emission factor unit must be the same",
+                    "UNIT_MISMATCH_ERROR",
+                    HttpStatus.CONFLICT
+            );
+        }
 
         Activity activity = activityMapper.toEntity(dto);
         activity.setAsset(asset);
@@ -68,6 +78,11 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<ActivityDTO> getActivitiesByAssetId(UUID assetId) {
         return activityRepository.findActivityDTOsByAssetId(assetId);
+    }
+
+    @Override
+    public List<ActivityDTO> getActivitiesByAssetIdAndOrganizationId(UUID assetId, UUID organizationId) {
+        return activityRepository.findActivityDTOsByAssetIdAndOrganizationId(assetId,organizationId);
     }
 
     @Override
