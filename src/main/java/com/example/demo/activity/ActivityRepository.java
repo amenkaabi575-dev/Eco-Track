@@ -62,4 +62,22 @@ public interface ActivityRepository extends JpaRepository<Activity, UUID> {
     List<ActivityDTO> findActivityDTOsByAssetId(UUID assetId);
 
 
+    @Query("""
+            
+            SELECT new com.example.demo.activity.entity.responseDTOs.ActivityDTO(
+            asset.id,
+            asset.name,
+            emissionFactor.id,
+            emissionFactor.name,
+            activity.activityDate,
+            activity.calculatedCo2
+            )
+            FROM Activity activity
+            JOIN activity.asset asset
+            JOIN activity.emissionFactor emissionFactor
+            WHERE asset.id = :assetId
+            AND asset.organization.id = :organizationId
+            """)
+    List<ActivityDTO> findActivityDTOsByAssetIdAndOrganizationId(UUID assetId, UUID organizationId);
+
 }

@@ -17,6 +17,8 @@ public interface ActivityService {
 
     List<ActivityDTO> getActivitiesByOrganizationId(UUID id);
 
+    List<ActivityDTO> getActivitiesByAssetIdAndOrganizationId(UUID assetId, UUID organizationId);
+
     List<ActivityDTO> getActivitiesByAssetId(UUID id);
 
     ActivityDTO updateActivityById(UUID id, ActivityUpdateDTO dto);

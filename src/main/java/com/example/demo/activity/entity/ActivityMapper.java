@@ -18,14 +18,9 @@ public interface ActivityMapper {
     @Mapping(source = "emissionFactor.id",target = "emissionFactorId")
     ActivityDTO toDto(Activity activity);
 
-
-
     @Mapping(target = "asset", ignore = true)
     @Mapping(target = "emissionFactor", ignore = true)
     Activity toEntity(ActivityCreateDTO dto);
-
-
-
 
     void updateActivityFromDto(ActivityUpdateDTO dto, @MappingTarget Activity activity);
 

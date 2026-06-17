@@ -18,8 +18,6 @@ public class ActivityUpdateDTO {
 
     private BigDecimal quantity;
 
-    private EmissionFactorUnit consumptionUnit;
-
     private LocalDateTime activityDate;
 
 }
