@@ -1,6 +1,5 @@
-package com.example.demo.asset.entity;
+package com.example.demo.activity.entity;
 
-import com.example.demo.activity.entity.Activity;
 import com.example.demo.activity.entity.requestDTOs.ActivityCreateDTO;
 import com.example.demo.activity.entity.requestDTOs.ActivityUpdateDTO;
 import com.example.demo.activity.entity.responseDTOs.ActivityDTO;
@@ -8,8 +7,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-
-import javax.swing.text.html.parser.Entity;
 
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ActivityMapper {
