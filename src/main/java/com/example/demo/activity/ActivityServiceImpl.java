@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,6 +53,9 @@ public class ActivityServiceImpl implements ActivityService {
         Activity activity = activityMapper.toEntity(dto);
         activity.setAsset(asset);
         activity.setEmissionFactor(factor);
+        activity.setCalculatedCo2(
+                activity.getQuantity().multiply(factor.getFactorValue())
+        );
 
         return activityMapper.toDto(activityRepository.save(activity));
     }
@@ -91,6 +95,9 @@ public class ActivityServiceImpl implements ActivityService {
         Activity activity = activityRepository
                 .findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Activity not found","ACTIVITY_NOT_FOUND"));
+        if (dto.getQuantity()!=null){
+            activity.setCalculatedCo2(dto.getQuantity().multiply(activity.getEmissionFactor().getFactorValue()));
+        }
         activityMapper.updateActivityFromDto(dto,activity);
         return activityMapper.toDto(activity);
     }
