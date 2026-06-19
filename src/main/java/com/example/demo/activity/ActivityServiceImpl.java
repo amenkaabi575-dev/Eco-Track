@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,7 +55,7 @@ public class ActivityServiceImpl implements ActivityService {
         activity.setAsset(asset);
         activity.setEmissionFactor(factor);
         activity.setCalculatedCo2(
-                activity.getQuantity().multiply(factor.getFactorValue())
+                activity.getQuantity().multiply(factor.getFactorValue()).setScale(4, RoundingMode.HALF_UP)
         );
 
         return activityMapper.toDto(activityRepository.save(activity));
@@ -96,7 +97,9 @@ public class ActivityServiceImpl implements ActivityService {
                 .findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Activity not found","ACTIVITY_NOT_FOUND"));
         if (dto.getQuantity()!=null){
-            activity.setCalculatedCo2(dto.getQuantity().multiply(activity.getEmissionFactor().getFactorValue()));
+            activity.setCalculatedCo2(
+                    dto.getQuantity().multiply(activity.getEmissionFactor().getFactorValue()).setScale(4,RoundingMode.HALF_UP)
+            );
         }
         activityMapper.updateActivityFromDto(dto,activity);
         return activityMapper.toDto(activity);
