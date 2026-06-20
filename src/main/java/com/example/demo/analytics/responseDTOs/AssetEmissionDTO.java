@@ -1,4 +1,4 @@
-package com.example.demo.activity.entity.responseDTOs;
+package com.example.demo.analytics.responseDTOs;
 
 
 import lombok.AllArgsConstructor;
