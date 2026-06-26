@@ -84,10 +84,10 @@ public interface ActivityRepository extends JpaRepository<Activity, UUID> {
 
 
     @Query("""            
-            SELECT new com.example.demo.activity.entity.responseDTOs.AssetEmissionDTO(
+            SELECT new com.example.demo.analytics.responseDTOs.AssetEmissionDTO(
             asset.id,
             asset.name,
-            COALESCE(SUM(activity.calculatedCo2),0)
+            COALESCE(SUM(activity.calculatedCo2),0.0)
             )
             FROM Activity activity
             JOIN activity.asset asset
@@ -99,10 +99,10 @@ public interface ActivityRepository extends JpaRepository<Activity, UUID> {
 
 
     @Query("""
-            SELECT new com.example.demo.activity.entity.responseDTOs.MonthlyEmissionDTO(
+            SELECT new com.example.demo.analytics.responseDTOs.MonthlyEmissionDTO(
             YEAR(activity.activityDate),
             MONTH(activity.activityDate),
-            COALESCE(SUM(activity.calculatedCo2),0)
+            COALESCE(SUM(activity.calculatedCo2),0.0)
             )
             FROM Activity activity
             JOIN activity.asset asset
@@ -114,15 +114,15 @@ public interface ActivityRepository extends JpaRepository<Activity, UUID> {
 
 
     @Query("""
-            SELECT new com.example.demo.activity.entity.responseDTOs.SectorEmissionDTO(
-            organization.sector sector,
-            COALESCE(SUM(activity.calculatedCo2),0)
+            SELECT new com.example.demo.analytics.responseDTOs.SectorEmissionDTO(
+            organization.sector,
+            COALESCE(SUM(activity.calculatedCo2),0.0)
             )
             FROM Activity activity
             JOIN activity.asset asset
             JOIN asset.organization organization
             WHERE organization.id = :organizationId
-            GROUP BY sector
+            GROUP BY organization.sector
             """)
     List<SectorEmissionDTO> findSectorEmissionsByOrganizationId(UUID organizationId);
 
