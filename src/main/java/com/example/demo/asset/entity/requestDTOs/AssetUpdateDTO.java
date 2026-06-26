@@ -2,12 +2,11 @@ package com.example.demo.asset.entity.requestDTOs;
 
 import com.example.demo.asset.entity.AssetType;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class AssetUpdateDTO {
 
