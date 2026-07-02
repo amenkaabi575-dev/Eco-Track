@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "emission_factor")
+@Table(name = "emission_factors")
 public class EmissionFactor {
 
 
