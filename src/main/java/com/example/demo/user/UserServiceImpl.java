@@ -15,6 +15,7 @@ import com.example.demo.user.enitity.responseDTOs.UserDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final OrganizationRepository organizationRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO getUserById(UUID id) {
@@ -64,7 +66,7 @@ public class UserServiceImpl implements UserService{
 
 
         User user = userMapper.toEntity(dto);
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setOrganization(organization);
         return userMapper.toDto(userRepository.save(user));
 
