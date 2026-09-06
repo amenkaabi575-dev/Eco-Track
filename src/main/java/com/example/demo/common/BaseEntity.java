@@ -39,9 +39,13 @@ public class BaseEntity {
     @Column(insertable = false)
     private Instant lastModifiedDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_id")
     @CreatedBy
     private User createdBy;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "last_modified_by_id")
     @LastModifiedBy
     private User lastModifiedBy;
 

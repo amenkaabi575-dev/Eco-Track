@@ -25,10 +25,6 @@ import java.util.UUID;
 public class EmissionFactor extends BaseEntity {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
     @Column(name = "name", nullable = false)
     private String name;
 
