@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService{
             throw new DuplicateResourceException("Email already in use","DUPLICATE_EMAIL");
         }
 
-        UserRole finalRole = dto.getUserRole() != null ? dto.getUserRole() : user.getUserRole();
+        UserRole finalRole = dto.getUserRole() != null ? dto.getUserRole() : user.getRole();
         Organization finalOrganization;
         if(finalRole == UserRole.ADMIN){
             if (dto.getOrganizationId()!=null){

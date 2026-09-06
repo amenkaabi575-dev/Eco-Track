@@ -1,4 +1,4 @@
-package com.example.demo.auth.security;
+package com.example.demo.auth.security.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

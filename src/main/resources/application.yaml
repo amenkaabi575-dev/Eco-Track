@@ -24,3 +24,9 @@ logging:
         orm:
           jdbc:
             bind: TRACE
+
+app:
+  security:
+    jwt:
+      refresh-token-expiration : 86400000 # 24 hours
+      access-token-expiration : 900000 # 15 mins

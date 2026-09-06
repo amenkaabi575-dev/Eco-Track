@@ -33,7 +33,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
-    private UserRole userRole;
+    private UserRole role;
 
     @CreationTimestamp
     @Column(name = "created_at")
