@@ -1,10 +1,13 @@
 package com.example.demo.user.enitity;
 
 
+import com.example.demo.common.BaseEntity;
 import com.example.demo.organization.entity.Organization;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,14 +16,13 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "users")
-public class User {
+@EntityListeners(AuditingEntityListener.class)
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class User extends BaseEntity {
+
 
     @Column(name = "username",unique = true, nullable = false)
     private String username;

@@ -1,10 +1,14 @@
 package com.example.demo.emissionFactor.entity;
 
 
+import com.example.demo.common.BaseEntity;
 import com.example.demo.organization.entity.Organization;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,10 +18,11 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "emission_factors")
-public class EmissionFactor {
+@EntityListeners(AuditingEntityListener.class)
+public class EmissionFactor extends BaseEntity {
 
 
     @Id

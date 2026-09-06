@@ -97,7 +97,7 @@ public class JwtService {
 
     public boolean isTokenValid(String token, String expectedUsername){
 
-        return !expectedUsername.equals(extractUsername(token));
+        return expectedUsername.equals(extractUsername(token));
 
     }
 

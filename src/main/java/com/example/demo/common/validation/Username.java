@@ -1,6 +1,5 @@
 package com.example.demo.common.validation;
 
-import com.example.demo.common.validation.UsernameValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

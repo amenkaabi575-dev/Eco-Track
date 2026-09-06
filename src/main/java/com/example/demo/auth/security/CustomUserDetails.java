@@ -29,7 +29,7 @@ public class CustomUserDetails implements UserDetails {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.role = user.getRole();
-        this.organizationId = user.getOrganization().getId();
+        this.organizationId = user.getOrganization() != null ? user.getOrganization().getId() : null ;
 
     }
 

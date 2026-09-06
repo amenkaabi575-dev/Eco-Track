@@ -1,11 +1,14 @@
 package com.example.demo.activity.entity;
 
 import com.example.demo.asset.entity.Asset;
+import com.example.demo.common.BaseEntity;
 import com.example.demo.emissionFactor.entity.EmissionFactor;
 import com.example.demo.emissionFactor.entity.EmissionFactorUnit;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,12 +20,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
-public class Activity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+@SuperBuilder
+@EntityListeners(AuditingEntityListener.class)
+public class Activity extends BaseEntity {
 
     @Column(name = "quantity", nullable = false, precision = 12, scale = 4)
     private BigDecimal quantity;
