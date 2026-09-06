@@ -4,6 +4,7 @@ package com.example.demo.common.exception;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class ErrorResponse {
 
     private String message;
     private int statusCode;
-    private LocalDateTime timestamp;
+    private Instant timestamp;
     private String path;
     private String errorCode;
     private Map<String,String> errors;
