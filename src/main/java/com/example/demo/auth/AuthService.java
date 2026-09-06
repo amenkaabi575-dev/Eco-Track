@@ -1,7 +1,9 @@
 package com.example.demo.auth;
 
-import com.example.demo.auth.DTOs.request.LoginRequest;
-import com.example.demo.auth.DTOs.request.LoginResponse;
+import com.example.demo.auth.DTOs.login.LoginRequest;
+import com.example.demo.auth.DTOs.login.LoginResponse;
+import com.example.demo.auth.DTOs.refresh.RefreshTokenRequest;
+import com.example.demo.auth.DTOs.refresh.RefreshTokenResponse;
 import com.example.demo.auth.security.CustomUserDetails;
 import com.example.demo.auth.security.jwt.JwtService;
 import io.jsonwebtoken.Claims;
@@ -44,10 +46,10 @@ public class AuthService {
 
     }
 
-    public String refreshAccessToken(String refreshToken){
+    public RefreshTokenResponse refreshAccessToken(RefreshTokenRequest request){
 
         try{
-            Claims claims = jwtService.extractClaims(refreshToken);
+            Claims claims = jwtService.extractClaims(request.getRefreshToken());
 
             if(!JwtService.REFRESH_TOKEN.equals(claims.get(JwtService.TOKEN_TYPE, String.class))){
                 throw new JwtException("Incorrect token type");
@@ -57,7 +59,10 @@ public class AuthService {
 
             CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
 
-            return jwtService.generateAccessToken(userDetails);
+            return RefreshTokenResponse.builder()
+                    .accessToken(jwtService.generateAccessToken(userDetails))
+                    .build()
+                    ;
         }
         catch (UsernameNotFoundException | JwtException | IllegalArgumentException e){
             throw new BadCredentialsException("Unable to refresh access token");

@@ -5,6 +5,7 @@ import com.example.demo.organization.entity.requestDTOs.OrganizationUpdateDTO;
 import com.example.demo.organization.entity.responseDTOs.OrganizationDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class OrganizationController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public OrganizationDTO createOrganization(@Valid @RequestBody OrganizationCreateDTO dto){
 
@@ -48,6 +50,7 @@ public class OrganizationController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
     public void deleteOrganizationById(@PathVariable UUID id){
 

@@ -1,4 +1,4 @@
-package com.example.demo.auth.DTOs.request;
+package com.example.demo.auth.DTOs.login;
 
 import com.example.demo.common.validation.Password;
 import com.example.demo.common.validation.Username;

@@ -2,6 +2,7 @@ package com.example.demo.auth.security;
 
 
 import com.example.demo.auth.security.jwt.JwtAuthenticationFilter;
+import com.example.demo.user.enitity.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,6 +51,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(PUBLIC_URLS)
                                 .permitAll()
+                                .requestMatchers("/api/v1/analytics/**")
+                                .hasRole(UserRole.MANAGER.name())
                                 .anyRequest()
                                 .authenticated()
                 )
