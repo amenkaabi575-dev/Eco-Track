@@ -5,6 +5,8 @@ import com.example.demo.auth.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,9 +21,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private static final String[] PUBLIC_URLS ={};
+    private static final String[] PUBLIC_URLS ={"/api/v1/auth/**"};
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Bean
+    public RoleHierarchy roleHierarchy(){
+
+        return RoleHierarchyImpl.fromHierarchy("""
+                
+                ROLE_ADMIN > ROLE_FIRM_OWNER
+                ROLE_FIRM_OWNER > ROLE_MANAGER
+                ROLE_MANAGER > ROLE_USER
+                
+                """);
+
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity http){
