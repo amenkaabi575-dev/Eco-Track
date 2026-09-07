@@ -1,10 +1,13 @@
 package com.example.demo.asset.entity;
 
 
+import com.example.demo.common.BaseEntity;
 import com.example.demo.organization.entity.Organization;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -12,17 +15,13 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Setter
 @Getter
 @Entity
 @Table(name = "assets")
-public class Asset {
-
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+@EntityListeners(AuditingEntityListener.class)
+public class Asset extends BaseEntity {
 
     @Column(name = "name",nullable = false)
     private String name;

@@ -6,12 +6,14 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +30,7 @@ public class GlobalExceptionHandler {
         ErrorResponse response = ErrorResponse.builder()
                 .message(ex.getMessage())
                 .statusCode(HttpStatus.NOT_FOUND.value())
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .path(request.getRequestURI())
                 .errorCode(ex.getErrorCode())
                 .build();
@@ -42,7 +44,7 @@ public class GlobalExceptionHandler {
 
         ErrorResponse response = ErrorResponse.builder()
                 .message(ex.getMessage())
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .path(request.getRequestURI())
                 .statusCode(HttpStatus.CONFLICT.value())
                 .errorCode(ex.getErrorCode())
@@ -59,7 +61,7 @@ public class GlobalExceptionHandler {
         ErrorResponse response = ErrorResponse.builder()
                 .message(ex.getMessage())
                 .statusCode(ex.getStatus().value())
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .path(request.getRequestURI())
                 .errorCode(ex.getErrorCode())
                 .build();
@@ -81,7 +83,7 @@ public class GlobalExceptionHandler {
         ErrorResponse response = ErrorResponse.builder()
                 .message("Validation Failed")
                 .statusCode(HttpStatus.BAD_REQUEST.value())
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .errorCode("VALIDATION_FAILED")
                 .path(request.getRequestURI())
                 .errors(errors)
@@ -106,7 +108,7 @@ public class GlobalExceptionHandler {
         ErrorResponse response = ErrorResponse.builder()
                 .message("Validation Failed")
                 .statusCode(HttpStatus.BAD_REQUEST.value())
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .errorCode("CONSTRAINT_VIOLATED")
                 .path(request.getRequestURI())
                 .errors(errors)
@@ -122,7 +124,7 @@ public class GlobalExceptionHandler {
         ErrorResponse response = ErrorResponse.builder()
                 .message("Property type is not correct")
                 .statusCode(HttpStatus.BAD_REQUEST.value())
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .errorCode("INCORRECT_PROPERTY_TYPE")
                 .path(request.getRequestURI())
                 .build();
@@ -137,12 +139,28 @@ public class GlobalExceptionHandler {
         ErrorResponse response = ErrorResponse.builder()
                 .message("Malformed request body")
                 .statusCode(HttpStatus.BAD_REQUEST.value())
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .errorCode("INVALID_REQUEST_BODY")
                 .path(request.getRequestURI())
                 .build();
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentials (BadCredentialsException ex, HttpServletRequest request){
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .message(ex.getMessage())
+                .errorCode("INVALID_USERNAME_OR_PASSWORD")
+                .path(request.getRequestURI())
+                .timestamp(Instant.now())
+                .statusCode(HttpStatus.UNAUTHORIZED.value())
+                .build()
+                ;
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
 
     }
 
@@ -152,7 +170,7 @@ public class GlobalExceptionHandler {
         ErrorResponse response = ErrorResponse.builder()
                 .message(ex.getMessage())
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .timestamp(LocalDateTime.now())
+                .timestamp(Instant.now())
                 .path(request.getRequestURI())
                 .errorCode("INTERNAL_SERVER_ERROR")
                 .build();

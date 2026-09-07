@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
@@ -21,4 +22,12 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     List<User> findUsersByOrganizationId(UUID organizationId);
 
     boolean existsByEmailAndIdNot(String email, UUID id);
+
+    @Query("""
+        SELECT u
+        FROM User u
+        LEFT JOIN FETCH u.organization
+        WHERE u.username = :username
+    """)
+    Optional<User> findByUsernameWithOrganization(String username);
 }
