@@ -36,11 +36,16 @@ public class ActivityServiceImpl implements ActivityService {
     public ActivityDTO createActivity(ActivityCreateDTO dto) {
         Asset asset = assetRepository
                 .findById(dto.getAssetId())
-                .orElseThrow(()-> new ResourceNotFoundException("Asset Not Found","ASSET_NOT_FOUND"));
+                .orElseThrow(()->
+                        new ResourceNotFoundException("Asset Not Found","ASSET_NOT_FOUND"));
 
         EmissionFactor factor = emissionFactorRepository
                 .findById(dto.getEmissionFactorId())
-                .orElseThrow(()-> new ResourceNotFoundException("Emission factor not found","EMISSION_FACTOR_NOT_FOUND"));
+                .orElseThrow(()->
+                        new ResourceNotFoundException(
+                                "Emission factor not found",
+                                "EMISSION_FACTOR_NOT_FOUND"
+                        ));
 
         if(dto.getConsumptionUnit()!=factor.getUnit()){
             throw new BusinessException(
@@ -54,7 +59,8 @@ public class ActivityServiceImpl implements ActivityService {
         activity.setAsset(asset);
         activity.setEmissionFactor(factor);
         activity.setCalculatedCo2(
-                activity.getQuantity().multiply(factor.getFactorValue()).setScale(4, RoundingMode.HALF_UP)
+                activity.getQuantity().multiply(factor.getFactorValue())
+                        .setScale(4, RoundingMode.HALF_UP)
         );
 
         return activityMapper.toDto(activityRepository.save(activity));
