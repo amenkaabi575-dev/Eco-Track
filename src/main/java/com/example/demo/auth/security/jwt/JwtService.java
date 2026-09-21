@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -33,11 +34,17 @@ public class JwtService {
 
     private static Map<String,Object> prepareCustomClaims(CustomUserDetails userDetails, String tokenType){
 
-        return Map.of("id", userDetails.getId(),
-                "role", userDetails.getRole(),
-                "organizationId", userDetails.getOrganizationId(),
-                TOKEN_TYPE,tokenType
-        );
+        Map<String, Object> claims = new HashMap<>();
+
+        claims.put("id", userDetails.getId());
+        claims.put("role", userDetails.getRole());
+        claims.put(TOKEN_TYPE, tokenType);
+
+        if (userDetails.getOrganizationId() != null) {
+            claims.put("organizationId", userDetails.getOrganizationId());
+        }
+
+        return claims;
 
     }
 

@@ -36,16 +36,18 @@ public class DatabaseSeederConfig {
 
         return args -> {
 
-            if (userRepository.findByUsername("admin").isEmpty()) {
+            if (userRepository.findByUsernameWithOrganization("admin123").isEmpty()) {
                 User admin = User.builder()
-                        .username("admin")
+                        .username("admin123")
                         .email("admin@admin.com")
-                        .password(passwordEncoder.encode("sasuke123"))
+                        .password(passwordEncoder.encode("Sasuke@123"))
                         .role(UserRole.ADMIN)
                         .createdAt(LocalDateTime.now())
                         .build()
                         ;
                 userRepository.save(admin);
+
+
 
 
                 Organization organization = Organization.builder()
