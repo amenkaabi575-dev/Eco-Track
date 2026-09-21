@@ -30,4 +30,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
         WHERE u.username = :username
     """)
     Optional<User> findByUsernameWithOrganization(String username);
+
+
+    Optional<User> findByUsername(String username);
 }
