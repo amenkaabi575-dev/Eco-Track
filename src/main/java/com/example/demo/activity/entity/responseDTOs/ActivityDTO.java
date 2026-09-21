@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -24,7 +25,7 @@ public class ActivityDTO {
 
     private String emissionFactorName;
 
-    private LocalDateTime activityDate;
+    private Instant activityDate;
 
     private BigDecimal calculatedCo2;
 

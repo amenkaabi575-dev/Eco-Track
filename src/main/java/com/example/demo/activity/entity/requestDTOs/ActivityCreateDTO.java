@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -25,7 +26,7 @@ public class ActivityCreateDTO {
     private EmissionFactorUnit consumptionUnit;
 
     @NotNull
-    private LocalDateTime activityDate;
+    private Instant activityDate;
 
     @NotNull
     private UUID assetId;

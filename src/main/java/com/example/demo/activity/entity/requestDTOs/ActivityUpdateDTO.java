@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -18,6 +19,6 @@ public class ActivityUpdateDTO {
 
     private BigDecimal quantity;
 
-    private LocalDateTime activityDate;
+    private Instant activityDate;
 
 }
