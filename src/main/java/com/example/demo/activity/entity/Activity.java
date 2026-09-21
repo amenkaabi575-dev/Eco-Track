@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -32,11 +33,11 @@ public class Activity extends BaseEntity {
     private EmissionFactorUnit consumptionUnit;
 
     @Column(name = "activity_date", nullable = false)
-    private LocalDateTime activityDate;
+    private Instant activityDate;
 
     @Column(name = "recorded_at")
     @CreationTimestamp
-    private LocalDateTime recordedAt;
+    private Instant recordedAt;
 
     @Column(precision = 12, scale = 4)
     private BigDecimal calculatedCo2;
