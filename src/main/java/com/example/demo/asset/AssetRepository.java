@@ -12,8 +12,8 @@ public interface AssetRepository extends JpaRepository<Asset, UUID> {
     List<Asset> findAssetsByOrganizationId(UUID id);
 
     @Query("""
-            SELECT a FROM Asset a
-            JOIN FETCH a.organization o
+            SELECT asset FROM Asset asset
+            JOIN FETCH asset.organization organization
             """)
     List<Asset> findAllAssets();
 

@@ -47,6 +47,7 @@ public class AssetServiceImpl implements AssetService{
     }
 
     @Override
+    @Transactional
     public List<AssetDTO> getAllAssets() {
         return assetRepository
                 .findAllAssets()
@@ -55,6 +56,7 @@ public class AssetServiceImpl implements AssetService{
     }
 
     @Override
+    @Transactional
     public List<AssetDTO> getAssetsByOrganizationId(UUID id) {
         return assetRepository.findAssetsByOrganizationId(id).stream().map(assetMapper::toDto).toList();
     }

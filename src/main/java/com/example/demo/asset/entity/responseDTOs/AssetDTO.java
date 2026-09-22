@@ -14,6 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class AssetDTO {
 
+    private UUID id;
+
     private String name;
 
     private AssetType type;

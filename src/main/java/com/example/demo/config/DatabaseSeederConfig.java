@@ -93,7 +93,20 @@ public class DatabaseSeederConfig {
                         .build()
                         ;
                 activityRepository.save(activity);
+
+                User standardUser = User.builder()
+                        .username("standardUser")
+                        .email("standardUser@standardUser.com")
+                        .password(passwordEncoder.encode("Naruto@123"))
+                        .role(UserRole.USER)
+                        .createdAt(LocalDateTime.now())
+                        .organization(organization)
+                        .build()
+                        ;
+                userRepository.save(standardUser);
             }
+
+
 
         };
 
